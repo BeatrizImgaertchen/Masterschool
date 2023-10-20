@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Movies from the selected user</h1>
+    
+    <ul class="movie-list">
+      {% for movie in movies %}
+      <li class="movie-item">
+        <div class="movie-info">
+          <p class="movie-title"><span class="label">Movie:</span> {{ movie.title }}</p>
+          <p class="movie-genre"><span class="label">Genre:</span> {{ movie.genre }}</p>
+        </div>
+        <div class="movie-actions">
+            <a class="action-button" href="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}">Update</a>
+            <a class="action-button" href="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}">Delete</a>
+            <a class="action-button" href="{{ url_for('movie_reviews', user_id=user_id, movie_id=movie.id) }}">Reviews</a>
+            <button class="info-button" data-movie-name="{{ movie.title }}" onclick="fetchMovieDetails(this)">See More Information</button>
+        </div>
+        <div id="movie-details-{{ movie.title }}" style="display: none;">
+        </div>
+      </li>
+      {% endfor %}
+
+
+    </ul>
+
+    <h2>Favorite Movies:</h2>
+    <form action="{{ url_for('add_favorite_movie', user_id=user_id) }}" method="post">
+        {% for movie in movies %}
+            <label>
+                <input type="checkbox" name="favorite_movies_{{ user_id }}" value="{{ movie.id }}"
+                {% if movie.id in user.favorite_movies|map(attribute='id') %} checked {% endif %}>
+
+                {{ movie.title }}
+            </label><br>
+        {% endfor %}
+        <button type="submit">Save Favorite Movies</button>
+    </form>
+
+    <a class="add-movie-button" href="{{ url_for('add_movie', user_id=user_id) }}">Add Movie</a>
+
+    <br>
+    <a href="{{ url_for('users') }}">Back to Users</a>
+   
+<script>
+
+function fetchMovieDetails(buttonElement) {
+    const movieName = buttonElement.getAttribute('data-movie-name');
+    
+    // Assuming you have an API endpoint to fetch movie details by Name
+    fetch(`/api/movie_details/${movieName}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log("Received movie details:", data);
+        const detailsDiv = document.getElementById(`movie-details-${movieName}`);
+        
+        // Populate detailsDiv with the movie data
+        detailsDiv.innerHTML = `
+            <h2>${data.Title}</h2>
+            <p>${data.Plot}</p>
+            <p>Directed by: ${data.Director}</p>
+            <p>Genre: ${data.Genre}</p>
+            <!-- Add more fields as needed -->
+        `;
+        
+        // Show the details
+        detailsDiv.style.display = 'block';
+    });
+}
+
+</script>
+
+
+   {% endblock %}

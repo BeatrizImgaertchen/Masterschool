@@ -1,0 +1,49 @@
+<!-- movie_reviews.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ movie.title }} Reviews</h2>
+  <p><a href="{{ url_for('user_movies', user_id=user_id) }}">Back to Movie List</a></p>
+
+  {% if reviews %}
+    <table>
+      <thead>
+        <tr>
+          <th>Review Text</th>
+          <th>Rating</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in reviews %}
+          <tr>
+            <td>{{ review.review_text }}</td>
+            <td>{{ review.rating }}</td>
+            <td><a href="{{ url_for('update_review', user_id=user_id, movie_id=movie.id, review_id=review.id) }}">Edit</a></td>
+            <td>
+              <form method="POST" action="{{ url_for('delete_review', user_id=user_id, movie_id=movie.id, review_id=review.id) }}">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No reviews available for this movie.</p>
+  {% endif %}
+
+  <hr>
+
+  <h3>Add New Review</h3>
+  <form method="POST" action="{{ url_for('add_review', user_id=user_id, movie_id=movie.id) }}">
+    <label for="review_text">Review Text</label>
+    <textarea id="review_text" name="review_text" rows="4"></textarea>
+    <br>
+    <label for="rating">Rating</label>
+    <input type="number" id="rating" name="rating" min="1" max="10">
+    <br>
+    <button type="submit">Add Review</button>
+  </form>
+{% endblock %}
