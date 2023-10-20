@@ -22,6 +22,3 @@ MovieWeb App is a web-based application that allows users to manage their favori
 - **Frontend**: HTML, CSS, and vanilla JavaScript
 - **Database**: SQLite
 
-## About Me 
-I am a dedicated software engineering student with a keen focus on mastering Python and web development. My passion lies not only in technology but also in nature, books, and the beauty of diverse cultures. As I transition from my current role at Netto supermarket in Germany, I aspire to make a significant mark in the software industry. Let's connect and collaborate!
-
