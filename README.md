@@ -1,6 +1,6 @@
 # MovieWeb App 🎬
 
-Welcome to MovieWeb App, the phase 5, my final project from the masterschool in core learning. This application serves as a culmination of the skills and knowledge I've acquired during my educational journey.
+Welcome to MovieWeb App, my final project from the masterschool in core learning. This application serves as a culmination of the skills and knowledge I've acquired during my educational journey.
 
 ## Overview 🌐
 
