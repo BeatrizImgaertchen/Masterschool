@@ -1,4 +1,4 @@
-# MovieWeb App 🎬
+# MovieWeb App 
 
 Welcome to MovieWeb App, my final project from the masterschool in core learning. This application serves as a culmination of the skills and knowledge I've acquired during my educational journey.
 
